@@ -1,8 +1,12 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import pool from "./src/config/db.js";
-import userRoute from "./src/routes/userRoutes.js";
+import pool from "./config/db.js";
+import userRoutes from "./routes/userRoutes.js";
+import errorHandling from "./middlewares/errrorHandler.js";
+import createUserTable from "./data/createUserTable.js";
+import validateUser from "./middlewares/inputValidator.js";
+
 
 dotenv.config();
 
@@ -16,7 +20,11 @@ app.use(cors());
 //Routes
 app.use("/api",userRoutes);
 
+// Create table before
+createUserTable();
+
 //Error handling Middlewares
+app.use(errorHandling);
 
 //Testing Postgre connections
 
@@ -27,8 +35,11 @@ app.get("/",async(req,res)=>{
 
 //Server Running
 app.listen(port,() => {
-console.log(`Server is running on http:localhost:${port}`);
+console.log(`Server is running on http://localhost:${port}`);
 })
+
+// const dbCheck = await pool.query("SELECT current_database()");
+// console.log("Connected to DB:", dbCheck.rows[0].current_database);
 
 
 

@@ -8,3 +8,4 @@ const errorHandling= (err, req, res, next)=>{
         error: err.message,
     });
 };
+ export default errorHandling;
