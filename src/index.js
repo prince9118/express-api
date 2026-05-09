@@ -35,7 +35,7 @@ app.get("/",async(req,res)=>{
 
 //Server Running
 app.listen(port,() => {
-// console.log(`Server is running on http://localhost:${port}`);
+console.log(`Server is running on http://localhost:${port}`);
 })
 
 // const dbCheck = await pool.query("SELECT current_database()");
